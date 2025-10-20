@@ -30,7 +30,10 @@ class ShowQuotes extends StatelessWidget {
             children: [
               Text(
                 '" ${quotes.quoteconverted?["quote"] ?? "Quote"} "',
+
                 style: TextStyle(
+                  wordSpacing: 2,
+                  letterSpacing: 2,
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -39,6 +42,7 @@ class ShowQuotes extends StatelessWidget {
               Text(
                 "- ${quotes.quoteconverted?["author"] ?? "Author"}",
                 style: TextStyle(
+                  letterSpacing: 2,
                   color: Colors.blueGrey,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
