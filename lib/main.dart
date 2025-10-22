@@ -1,5 +1,6 @@
+import 'package:api_fetching_examples/controller/product_controller.dart';
 import 'package:api_fetching_examples/controller/quotes_controller.dart';
-import 'package:api_fetching_examples/view/show_quotes/show_quotes.dart';
+import 'package:api_fetching_examples/view/product_details/product-details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,11 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => QuotesController(),)
+        ChangeNotifierProvider(create: (context) => QuotesController(),),
+        ChangeNotifierProvider(create: (context) => ProductController(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ShowQuotes(),
+        home: const ProductDetails(),
       ),
     );
   }

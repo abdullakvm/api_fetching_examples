@@ -23,35 +23,37 @@ class ShowQuotes extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Column(
-            spacing: 10,
-            mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '" ${quotes.quoteconverted?["quote"] ?? "Quote"} "',
-
-                style: TextStyle(
-                  wordSpacing: 2,
-                  letterSpacing: 2,
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+          child: quotes.isLoading ? CircularProgressIndicator()
+            : Column(
+              spacing: 10,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '" ${quotes.quoteconverted?["quote"] ?? "Quote"} "',
+            
+                  style: TextStyle(
+                    wordSpacing: 2,
+                    letterSpacing: 2,
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                "- ${quotes.quoteconverted?["author"] ?? "Author"}",
-                style: TextStyle(
-                  letterSpacing: 2,
-                  color: Colors.blueGrey,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  "- ${quotes.quoteconverted?["author"] ?? "Author"}",
+                  style: TextStyle(
+                    letterSpacing: 2,
+                    color: Colors.blueGrey,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
+      
     );
   }
 }

@@ -6,11 +6,15 @@ import 'package:http/http.dart' as http;
 
 class QuotesController with ChangeNotifier {
   Map? quoteconverted;
-  int idq = 0; // set id as o at start then increase by one when next button clicks
+  bool isLoading = false;
+  int idq =
+      0; // set id as o at start then increase by one when next button clicks
   Future<void> fetchdata() async {
     final url = Uri.parse("https://dummyjson.com/quotes/$idq");
 
     try {
+      isLoading = true;
+      notifyListeners();
       final qoutedata = await http.get(url);
       if (qoutedata.statusCode >= 200 && qoutedata.statusCode < 300) {
         quoteconverted = jsonDecode(qoutedata.body);
@@ -21,5 +25,7 @@ class QuotesController with ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
+    isLoading = false;
+    notifyListeners();
   }
 }
