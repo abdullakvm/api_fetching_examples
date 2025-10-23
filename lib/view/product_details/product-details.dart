@@ -8,7 +8,18 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productres = context.watch<ProductController>();
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        elevation: 20,
+        onPressed: () {
+          productres.id++;
+          context.read<ProductController>().productFetch();
+        },
+        child: Text("Next"),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -25,16 +36,19 @@ class ProductDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ClipRect(
-                      child: Image.network(
-                        productres.product?.image ?? "",
-                        height: 200,
-                        width: 300,
-                        fit: BoxFit.cover,
-                      ),
+                      child: productres.isloading
+                          ? CircularProgressIndicator()
+                          : Image.network(
+                              productres.product?.image ??
+                                  "https://images.pexels.com/photos/3905776/pexels-photo-3905776.jpeg",
+                              height: 200,
+                              width: 300,
+                              fit: BoxFit.contain,
+                            ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      "Item name",
+                    Text(
+                      productres.product?.title ?? "Title",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -42,8 +56,8 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      "Item Description",
+                    Text(
+                      productres.product?.description ?? "Description",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
@@ -51,8 +65,8 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      "\$100",
+                    Text(
+                      '\$${productres.product?.price ?? "Price"}',
                       style: TextStyle(
                         color: Color.fromARGB(255, 3, 79, 42),
                         fontSize: 20,
@@ -62,9 +76,7 @@ class ProductDetails extends StatelessWidget {
                     const SizedBox(height: 10),
 
                     InkWell(
-                      onTap: () {
-                        context.read<ProductController>().productFetch(1);
-                      },
+                      onTap: () {},
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 14),

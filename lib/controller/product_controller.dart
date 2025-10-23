@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProductController with ChangeNotifier {
-  bool? isloading = false;
+  bool isloading = false;
   ProductModel? product;
+  int id = 0;
 
-  Future<void> productFetch(int id) async {
+  Future<void> productFetch() async {
     final url = Uri.parse("https://fakestoreapi.com/products/$id");
 
     try {
+      isloading = true;
+      notifyListeners();
       final res = await http.get(url);
       if (res.statusCode >= 200 && res.statusCode < 300) {
         product = productModelFromJson(res.body);
@@ -19,6 +22,7 @@ class ProductController with ChangeNotifier {
     } catch (e) {
       debugPrint(e.toString());
     }
+    isloading = false;
     notifyListeners();
   }
 }
